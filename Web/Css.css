@@ -1,0 +1,272 @@
+:root {
+    --primary: #3A86FF;
+    --secondary: #8338EC;
+    --glass-light: rgba(255, 255, 255, 0.15);
+    --glass-dark: rgba(0, 0, 0, 0.2);
+    --text-light: #2A2A2A;
+    --text-dark: #F8F9FA;
+}
+/* 字体修改 */
+@font-face {
+    font-family: '得意黑';
+    src: url('./fonts/SmileySans-Oblique.otf.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* 备案信息样式 */
+.beian {
+    font-family: "得意黑",sans-serif;
+    text-align: center;
+    margin-top: auto;
+    width: 99%;
+    color: var(--text-light);
+}
+
+.beian1 {
+    margin-bottom: 1px;
+    text-decoration: none;
+    color: rgb(39, 38, 38);
+    text-align: center;
+}
+
+body[data-theme="dark"] .beian {
+    color: var(--text-dark);
+}
+
+body {
+     min-height: 98vh;
+    display: flex;
+    flex-direction: column;
+    /* 改为纵向布局 */
+    align-items: center;
+    background: #f3f4f6;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.5s ease;
+}
+
+body[data-theme="dark"] {
+    background: #0f172a;
+    color: var(--text-dark);
+}
+
+/* 主容器 */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 400px);
+    gap: 4rem;
+    position: relative;
+}
+
+/* 卡片设计 */
+.glass-card {
+    font-family: "得意黑",sans-serif;
+    margin-top: 246px;
+    background: var(--glass-light);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body[data-theme="dark"] .glass-card {
+    background: var(--glass-dark);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 左侧个人卡片 */
+.profile-card {
+    margin-top: 246px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.avatar {
+    margin-top: 52px;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    margin-bottom: 1.5rem;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+}
+
+.avatar:hover {
+    transform: rotate(360deg) scale(1.05);
+}
+
+/* 右侧九宫格 */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.grid-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.grid-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.grid-item:hover::before {
+    opacity: 0.1;
+}
+
+/* 名言展示 */
+.quote-container {
+    position: absolute;
+    top: -80px;
+    right: 0;
+    width: 331px;
+    background: var(--glass-light);
+    backdrop-filter: blur(12px);
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="dark"] .quote-container {
+    background: var(--glass-dark);
+}
+
+/* 主题切换按钮 */
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: white;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* 幕布样式 */
+.curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 9999;
+}
+
+.curtain-left,
+.curtain-right {
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    /* 增加动画持续时间，例如将 1s 改为 3s */
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.curtain-left {
+    animation-name: slideLeft;
+}
+
+.curtain-right {
+    animation-name: slideRight;
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* 提示框样式 */
+.welcome-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    color: rgb(77, 75, 75);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9998;
+    opacity: 0;
+    animation: fadeInOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        top: -50px;
+    }
+    20% {
+        opacity: 1;
+        top: 20px;
+    }
+    80% {
+        opacity: 1;
+        top: 20px;
+    }
+    100% {
+        opacity: 0;
+        top: -50px;
+    }
+}
